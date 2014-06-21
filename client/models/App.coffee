@@ -22,10 +22,8 @@ class window.App extends Backbone.Model
 
   # Determine winner
   gameOver: ->
-    playerScore = (@get 'playerHand').scores()[0]
-    dealerScore = (@get 'dealerHand').scores()[0]
-    console.log('player: ', playerScore)
-    console.log(dealerScore)
+    playerScore = (@get 'playerHand').scores()
+    dealerScore = (@get 'dealerHand').scores()
     if dealerScore > 21 or playerScore > dealerScore
       @set 'result', "You Win"
     else if playerScore == dealerScore
