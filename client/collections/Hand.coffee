@@ -7,6 +7,10 @@ class window.Hand extends Backbone.Collection
   hit: ->
     @add(@deck.pop()).last()
 
+  stand: ->
+    # Trigger stand.
+    @trigger('stand')
+
   scores: ->
     # The scores are an array of potential scores.
     # Usually, that array contains one element. That is the only score.
@@ -18,3 +22,13 @@ class window.Hand extends Backbone.Collection
       score + if card.get 'revealed' then card.get 'value' else 0
     , 0
     if hasAce then [score, score + 10] else [score]
+
+  dealerPlay: ->
+    @at(0).flip()
+    console.log(@at(0))
+    @hit() while @scores() < 17
+    # Trigger game over
+    @trigger('gameOver')
+
+
+
