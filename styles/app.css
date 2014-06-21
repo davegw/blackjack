@@ -1,3 +1,11 @@
+body {
+  background: url('http://www.brianvowles.com/page6/page2/files/stacks_image_339_1.png') no-repeat;
+  background-size: cover;
+  color: yellow;
+  min-width: 800px;
+  background-color: black;
+}
+
 .card {
   float: left;
   border: solid 1px black;
@@ -5,6 +13,7 @@
   border-radius: 5px;
   height: 140px;
   margin-right: 20px;
+  background-size: cover;
 }
 
 div.card.covered {
@@ -12,8 +21,26 @@ div.card.covered {
 }
 
 .hand {
+  margin-left: 350px;
   overflow: auto;
+}
+.dealer-hand-container {
+  padding-top: 60px;
 }
 .restart {
   display: none;
+}
+
+#scoreboard {
+  float: right;
+  font-size: 25px;
+}
+
+#controls {
+  text-align: center;
+}
+button {
+  margin: 20px auto;
+  padding: 10px;
+  font-size: 20px;
 }
