@@ -25,7 +25,7 @@ class window.App extends Backbone.Model
     playerScore = (@get 'playerHand').scores()
     dealerScore = (@get 'dealerHand').scores()
     if dealerScore > 21 or playerScore > dealerScore
-      @set 'result', "You Win"
+      @set 'result', "You Win!"
     else if playerScore == dealerScore
       @set 'result', "Push"
     else
@@ -33,3 +33,19 @@ class window.App extends Backbone.Model
 
   bust: ->
     @set 'result', "Bust"
+
+  blackJack: ->
+    @set 'result', "BlackJack!!! You Win!"
+
+  startGame: ->
+    @get('playerHand').startHand()
+    @get('dealerHand').startHand()
+    if @get('playerHand').checkBlackJack()
+      if @get('dealerHand').checkBlackJack()
+        @set 'result', "Push"
+      else
+        @blackJack()
+    else if @get('dealerHand').checkBlackJack()
+      @set 'result', "Dealer BlackJack! You Lose"
+    @get('dealerHand').at(0).flip()
+

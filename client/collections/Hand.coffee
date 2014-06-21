@@ -13,12 +13,17 @@ class window.Hand extends Backbone.Collection
     # Trigger stand.
     @trigger('stand')
 
-  scores: ->
+  scores: (peek=false) ->
     hasAce = @reduce (memo, card) ->
-      memo or card.get('value') is 1
+      memo or ((card.get('revealed') or peek) and (card.get('value') is 1))
     , false
     score = @reduce (score, card) ->
-      score + if card.get 'revealed' then card.get 'value' else 0
+      newCard
+      if (card.get('revealed') or peek)
+        newCard = card.get 'value'
+      else
+        newCard = 0
+      score + newCard
     , 0
     if hasAce and (score + 10 <= 21)
       score + 10
@@ -30,5 +35,17 @@ class window.Hand extends Backbone.Collection
     @hit() while @scores() < 17
     @trigger('gameOver')
 
+  startHand: ->
+    if @isDealer
+      @at(1).flip()
+    else
+      @at(0).flip()
+      @at(1).flip()
+
+  checkBlackJack: ->
+    if @scores(true) == 21
+      true
+    else
+      false
 
 

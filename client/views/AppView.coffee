@@ -9,11 +9,14 @@ class window.AppView extends Backbone.View
     <div class="player-hand-container"></div>
     <div id="controls">
       <button class="hit-button game-over">Hit</button> <button class="stand-button game-over">Stand</button>
-      <button class="restart game-over">Restart Game</button>
+      <button class="restart game-over">Play Again</button>
+      <button class="bet-button game-over">Place Your Bet</button>
     </div>
   '
 
   events:
+    "click .bet-button": ->
+      @model.startGame()
     "click .hit-button": -> @model.get('playerHand').hit()
     "click .stand-button": -> @model.get('playerHand').stand()
     "click .restart": ->
