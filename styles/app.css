@@ -27,9 +27,6 @@ div.card.covered {
 .dealer-hand-container {
   padding-top: 60px;
 }
-.restart {
-  display: none;
-}
 
 #scoreboard {
   float: right;

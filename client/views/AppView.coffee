@@ -8,9 +8,7 @@ class window.AppView extends Backbone.View
     <div class="dealer-hand-container"></div>
     <div class="player-hand-container"></div>
     <div id="controls">
-      <button class="hit-button game-over">Hit</button> <button class="stand-button game-over">Stand</button>
-      <button class="restart game-over">Play Again</button>
-      <button class="bet-button game-over">Place Your Bet</button>
+      <div><button class="bet-button game-over">Place Your Bet</button></div>
     </div>
   '
 
@@ -27,6 +25,15 @@ class window.AppView extends Backbone.View
     @model.on('change result', =>
       $('.result-container').text("#{@model.get('result')}")
       $('.game-over').toggle()
+    )
+    @model.on('play', =>
+      $('#controls').html('<button class="hit-button game-over">Hit</button> <button class="stand-button game-over">Stand</button>')
+    )
+    @model.on('gameOver', =>
+      $('#controls').html('<button class="restart game-over">Play Again</button>')
+    )
+    @model.on('bet', =>
+      $('#controls').html('<button class="bet-button game-over">Place Your Bet</button>')
     )
     @render()
 

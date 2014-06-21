@@ -10,14 +10,17 @@ class window.App extends Backbone.Model
     # Listens for stand
     (@get 'playerHand').on('stand', =>
       (@get 'dealerHand').dealerPlay()
+      @trigger 'gameOver'
     )
     (@get 'playerHand').on('bust', =>
       @bust()
+      @trigger 'gameOver'
     )
 
     # Listen for game over event
     (@get 'dealerHand').on('gameOver', =>
       @gameOver()
+      @trigger 'gameOver'
     )
 
   # Determine winner
@@ -42,10 +45,11 @@ class window.App extends Backbone.Model
     @get('dealerHand').startHand()
     if @get('playerHand').checkBlackJack()
       if @get('dealerHand').checkBlackJack()
-        @set 'result', "Push"
       else
         @blackJack()
+      @get('dealerHand').at(0).flip()
     else if @get('dealerHand').checkBlackJack()
       @set 'result', "Dealer BlackJack! You Lose"
-    @get('dealerHand').at(0).flip()
-
+      @get('dealerHand').at(0).flip()
+    else
+      @trigger('play')
