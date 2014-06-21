@@ -17,7 +17,7 @@ body {
 }
 
 div.card.covered {
-  background-image: url('/img/cards/10-clubs.png');
+  background-image: url('../img/card-back.png');
 }
 
 .hand {
