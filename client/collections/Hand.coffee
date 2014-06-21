@@ -6,6 +6,8 @@ class window.Hand extends Backbone.Collection
 
   hit: ->
     @add(@deck.pop()).last()
+    if @scores()[0] > 21
+      @trigger('bust')
 
   stand: ->
     # Trigger stand.
@@ -26,8 +28,7 @@ class window.Hand extends Backbone.Collection
   dealerPlay: ->
     @at(0).flip()
     console.log(@at(0))
-    @hit() while @scores() < 17
-    # Trigger game over
+    @hit() while @scores()[0] < 17
     @trigger('gameOver')
 
 

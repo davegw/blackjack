@@ -14,3 +14,6 @@ div.card.covered {
 .hand {
   overflow: auto;
 }
+.restart {
+  display: none;
+}

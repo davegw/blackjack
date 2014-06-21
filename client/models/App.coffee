@@ -5,11 +5,16 @@ class window.App extends Backbone.Model
     @set 'deck', deck = new Deck()
     @set 'playerHand', deck.dealPlayer()
     @set 'dealerHand', deck.dealDealer()
+    @set 'result', 'Playing'
 
     # Listens for stand
     (@get 'playerHand').on('stand', =>
       (@get 'dealerHand').dealerPlay()
     )
+    (@get 'playerHand').on('bust', =>
+      @bust()
+    )
+
     # Listen for game over event
     (@get 'dealerHand').on('gameOver', =>
       @gameOver()
@@ -17,11 +22,16 @@ class window.App extends Backbone.Model
 
   # Determine winner
   gameOver: ->
-    playerScore = (@get 'playerHand').scores()
-    dealerScore = (@get 'dealerHand').scores()
-    if playerScore > dealerScore
-      alert 'player wins'
+    playerScore = (@get 'playerHand').scores()[0]
+    dealerScore = (@get 'dealerHand').scores()[0]
+    console.log('player: ', playerScore)
+    console.log(dealerScore)
+    if dealerScore > 21 or playerScore > dealerScore
+      @set 'result', "You Win"
     else if playerScore == dealerScore
-      alert 'push'
+      @set 'result', "Push"
     else
-      alert 'dealer wins'
+      @set 'result', "You Lose"
+
+  bust: ->
+    @set 'result', "Bust"
