@@ -35,7 +35,8 @@ class window.App extends Backbone.Model
       @set 'result', "You Lose"
 
   bust: ->
-    @set 'result', "Bust"
+    @set 'result', "Bust! You Lose."
+    @get('dealerHand').at(0).flip()
 
   blackJack: ->
     @set 'result', "BlackJack!!! You Win!"

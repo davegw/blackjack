@@ -24,18 +24,26 @@ div.card.covered {
   margin-left: 350px;
   overflow: auto;
 }
-.dealer-hand-container {
-  padding-top: 60px;
-}
 
 #scoreboard {
-  float: right;
-  font-size: 25px;
+  margin-top: 220px;
+  text-align: center;
+  font-size: 40px;
+  font-weight: bold;
+}
+
+h2 {
+  margin: 0 0 5px 0;
+}
+
+.dealer-hand-container {
+  margin-bottom: 20px;
 }
 
 #controls {
   text-align: center;
 }
+
 button {
   margin: 20px auto;
   padding: 10px;
