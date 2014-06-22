@@ -1,4 +1,3 @@
-#todo: refactor to have a game beneath the outer blackjack model
 class window.App extends Backbone.Model
 
   initialize: ->
@@ -7,21 +6,43 @@ class window.App extends Backbone.Model
     @set 'dealerHand', deck.dealDealer()
     @set 'result', 'Playing'
 
-    # Listens for stand
+    # Listens for stand.
     (@get 'playerHand').on('stand', =>
       (@get 'dealerHand').dealerPlay()
-      @trigger 'gameOver'
-    )
-    (@get 'playerHand').on('bust', =>
-      @bust()
-      @trigger 'gameOver'
+      @trigger 'end'
     )
 
-    # Listen for game over event
+    # Listen for bust.
+    (@get 'playerHand').on('bust', =>
+      @bust()
+      @trigger 'end'
+    )
+
+    # Listen for game over event.
     (@get 'dealerHand').on('gameOver', =>
       @gameOver()
-      @trigger 'gameOver'
+      @trigger 'end'
     )
+
+  # Start the game.
+  startGame: ->
+    @get('playerHand').startHand()
+    @get('dealerHand').startHand()
+    # Handle blackjacks.
+    if @get('playerHand').checkBlackJack()
+      if @get('dealerHand').checkBlackJack()
+        @set 'result', "Push"
+      else
+        @blackJack()
+      @get('dealerHand').at(0).flip()
+      @trigger 'end'
+    else if @get('dealerHand').checkBlackJack()
+      @set 'result', "Dealer BlackJack! You Lose"
+      @get('dealerHand').at(0).flip()
+      @trigger 'end'
+    # Play the hand if there are no blackjacks.
+    else
+      @trigger('play')
 
   # Determine winner
   gameOver: ->
@@ -40,17 +61,3 @@ class window.App extends Backbone.Model
 
   blackJack: ->
     @set 'result', "BlackJack!!! You Win!"
-
-  startGame: ->
-    @get('playerHand').startHand()
-    @get('dealerHand').startHand()
-    if @get('playerHand').checkBlackJack()
-      if @get('dealerHand').checkBlackJack()
-      else
-        @blackJack()
-      @get('dealerHand').at(0).flip()
-    else if @get('dealerHand').checkBlackJack()
-      @set 'result', "Dealer BlackJack! You Lose"
-      @get('dealerHand').at(0).flip()
-    else
-      @trigger('play')

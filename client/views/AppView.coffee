@@ -13,23 +13,19 @@ class window.AppView extends Backbone.View
   '
 
   events:
-    "click .bet-button": ->
-      @model.startGame()
+    "click .bet-button": -> @model.startGame()
     "click .hit-button": -> @model.get('playerHand').hit()
     "click .stand-button": -> @model.get('playerHand').stand()
-    "click .restart": ->
-      $('body').children().remove()
-      new AppView(model: new App()).$el.appendTo 'body'
+    "click .restart": -> $('body').html(new AppView(model: new App()).$el) @model.newGame()
 
   initialize: ->
     @model.on('change result', =>
       $('.result-container').text("#{@model.get('result')}")
-      $('.game-over').toggle()
     )
     @model.on('play', =>
       $('#controls').html('<button class="hit-button game-over">Hit</button> <button class="stand-button game-over">Stand</button>')
     )
-    @model.on('gameOver', =>
+    @model.on('end', =>
       $('#controls').html('<button class="restart game-over">Play Again</button>')
     )
     @model.on('bet', =>
