@@ -1,10 +1,12 @@
 class window.App extends Backbone.Model
 
-  initialize: ->
+  initialize: (startingChips=100) ->
     @set 'deck', deck = new Deck()
     @set 'playerHand', deck.dealPlayer()
     @set 'dealerHand', deck.dealDealer()
-    @set 'result', 'Playing'
+    @set 'result', 'Please Place Your Bet'
+    @set 'chips', startingChips
+    @set 'bet', 10
 
     # Listens for stand.
     (@get 'playerHand').on('stand', =>
@@ -39,6 +41,7 @@ class window.App extends Backbone.Model
     else if @get('dealerHand').checkBlackJack()
       @set 'result', "Dealer BlackJack! You Lose"
       @get('dealerHand').at(0).flip()
+      @loseBet()
       @trigger 'end'
     # Play the hand if there are no blackjacks.
     else
@@ -50,14 +53,24 @@ class window.App extends Backbone.Model
     dealerScore = (@get 'dealerHand').scores()
     if dealerScore > 21 or playerScore > dealerScore
       @set 'result', "You Win!"
+      @winBet()
     else if playerScore == dealerScore
       @set 'result', "Push"
     else
       @set 'result', "You Lose"
+      @loseBet()
 
   bust: ->
     @set 'result', "Bust! You Lose."
     @get('dealerHand').at(0).flip()
+    @loseBet()
 
   blackJack: ->
     @set 'result', "BlackJack!!! You Win!"
+    @set('chips', @get('chips') + Math.ceil(@get('bet')*1.5))
+
+  winBet: ->
+    @set('chips', @get('chips') + @get('bet'))
+
+  loseBet: ->
+    @set('chips', @get('chips') - @get('bet'))

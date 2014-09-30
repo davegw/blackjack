@@ -39,12 +39,24 @@ h2 {
   margin-bottom: 20px;
 }
 
-#controls {
+#controls,
+#chips {
   text-align: center;
 }
 
+#chips {
+  margin-bottom: 60px;
+}
+
+.chips-container,
+.bet-container {
+  font-size: 24px;
+  display: inline-block;
+  margin: 0 20px;
+}
+
 button {
-  margin: 20px auto;
-  padding: 10px;
+  margin: 10px;
+  padding: 10px 20px;
   font-size: 20px;
 }
