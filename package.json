@@ -1,0 +1,25 @@
+{
+  "name": "blackjack21",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.html",
+  "dependencies": {},
+  "devDependencies": {
+    "coffee-script": "^1.7.1"
+  },
+  "scripts": {
+    "preinstall": "npm install -g coffee-script",
+    "postinstall": "coffee --compile --output compiled .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/davegw/blackjack.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/davegw/blackjack/issues"
+  },
+  "homepage": "https://github.com/davegw/blackjack"
+}
