@@ -1,8 +1,7 @@
 body {
-  background: url('http://www.brianvowles.com/page6/page2/files/stacks_image_339_1.png') no-repeat;
+  background: url('../img/game-table.png') no-repeat;
   background-size: cover;
   color: yellow;
-  min-width: 800px;
   background-color: black;
 }
 
@@ -21,14 +20,14 @@ div.card.covered {
 }
 
 .hand {
-  margin-left: 350px;
+  margin-left: 20%;
   overflow: auto;
 }
 
 #scoreboard {
-  margin-top: 220px;
+  margin-top: 160px;
   text-align: center;
-  font-size: 40px;
+  font-size: 36px;
   font-weight: bold;
 }
 
